@@ -39,9 +39,9 @@ $(function() {
         });
 		//Check if it hide or show when we click on it.
         it('menu changes', function(){
-            $('.menu-icon-link').trigger('click');
+            $('.menu-icon-link').click();
             expect($('body').hasClass("menu-hidden")).toBe(false);
-            $('.menu-icon-link').trigger('click');
+            $('.menu-icon-link').click();
             expect($('body').hasClass("menu-hidden")).toBe(true);
         });
     });
@@ -55,9 +55,7 @@ $(function() {
         });
 		//Check if entry has more than 0 entries
         it('define if entry has more than 0 entries', function(){
-            expect($('.feed')).not.toBeNull();
-			expect($('.entry')).not.toBeNull();
-			expect($('.entry')).toBeDefined();
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 	//Check if it changes content when new feed is load
@@ -68,18 +66,17 @@ $(function() {
         beforeEach(function(done){
             loadFeed(0, function () {
                 prevUrl = $('.feed').find(allFeeds.url);
-                done();
-            });
 			//load second feed in next variable.
-            loadFeed(1, function () {
-                newUrl = $('.feed').find(allFeeds.url);
-				
-                done();   
-            });
-        });
+					loadFeed(1, function () {
+						newUrl = $('.feed').find(allFeeds.url);			
+						done();   
+					});
+			});
+		});
+
 		//And check that prevUrl and newUrl if they are diffrent
 		it('changes content when new feed is load', function(){
-				expect(prevUrl).not.toEqual(newUrl);
+				expect(prevUrl).not.toBe(newUrl);
 				});
 
     });
